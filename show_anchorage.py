@@ -9,7 +9,9 @@ os.system('SHAPE_RESTORE_SHX=YES fio info shapefiles/2013_districts.shp')
 #precinct_file = 'shapefiles/2013_precincts.shp'
 district_file = 'shapefiles/2013_districts.shp'
 full_file = os.path.join(os.getcwd(), district_file)
-df = geopandas.read_file(full_file) 
+
+file_crs = districts_crs
+df = geopandas.read_file(full_file, crs=file_crs) 
 geometry = df['geometry']
 plot = geometry.plot(color='white', edgecolor='black')
 
