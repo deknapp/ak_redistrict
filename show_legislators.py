@@ -33,6 +33,8 @@ borough_plot = borough_geometry.plot(color='white', edgecolor='black')
 # We can now plot our ``GeoDataFrame``.
 gdf.plot(ax=borough_plot, color='red')
 
+plt.ylim(58, 70)
+plt.xlim(-160, -140)
 plt.show()
 
 #borough_plot.get_figure().savefig('/Users/nknapp/Desktop/test.pdf')
