@@ -17,6 +17,9 @@ gdf = geopandas.GeoDataFrame(df, geometry=geometry)
 
 gdf.plot(ax=plot, color='white', edgecolor='black')
 
+gdf.head()
+exit()
+
 anchorage_min_long = 200000
 anchorage_max_long = 300000
 anchorage_min = 1200000
