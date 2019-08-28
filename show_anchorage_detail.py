@@ -17,10 +17,10 @@ gdf = geopandas.GeoDataFrame(df, geometry=geometry)
 
 gdf.plot(ax=plot, color='white', edgecolor='black')
 
-anchorage_min_long = 200000
-anchorage_max_long = 300000
-anchorage_min = 1200000
-anchorage_max = 1300000
+anchorage_min_long = 210000
+anchorage_max_long = 235000
+anchorage_min = 1240000
+anchorage_max = 1260000
 plt.ylim(anchorage_min, anchorage_max)
 plt.xlim(anchorage_min_long, anchorage_max_long)
 plt.show()
