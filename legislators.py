@@ -20,3 +20,9 @@ def get_leg_df():
 def get_leg_gdf():
   df = get_leg_df()
   gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))
+  return gdf
+
+def get_leg_points():
+  df = get_leg_df()
+  return geopandas.points_from_xy(df.Longitude, df.Latitude)
+  
