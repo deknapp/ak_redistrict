@@ -16,15 +16,17 @@ for line in handle.readlines():
 
 print(lats)
 
+os.system('SHAPE_RESTORE_SHX=YES fio info gz_2010_us_050_00_20m.shp')
+
 leg_coord_dict = {'Legislator':legs, 'Longitude':longs, 'Latitude':lats}
   
 df = pandas.DataFrame(leg_coord_dict)
 gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))
 
-boroughs = geopandas.read_file('borough/mv_borough_py.shp')
+borough_file = 'gz_2010_us_050_00_20m.shp'
+full_file = os.path.join(os.getcwd(), borough_file)
+boroughs = geopandas.read_file(full_file) 
 borough_geometry = boroughs['geometry']
-print(borough_geometry)
-exit()
 
 borough_plot = borough_geometry.plot(color='white', edgecolor='black')
 
