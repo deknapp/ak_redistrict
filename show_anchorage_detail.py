@@ -4,6 +4,9 @@ import pandas
 import os
 import osr
 
+
+   
+
 os.system('SHAPE_RESTORE_SHX=YES fio info shapefiles/2013_districts.shp')
 
 prj_name = 'shapefiles/2013_precincts_proj.prj'
@@ -23,12 +26,12 @@ gdf = geopandas.GeoDataFrame(df, geometry=geometry, crs=proj4)
 
 gdf.plot(ax=plot, color='white', edgecolor='black')
 
-anchorage_min_long = 210000
-anchorage_max_long = 235000
-anchorage_min = 1240000
-anchorage_max = 1260000
-#plt.ylim(anchorage_min, anchorage_max)
-#plt.xlim(anchorage_min_long, anchorage_max_long)
+anchorage_min_long = -149.7
+anchorage_max_long = -150.1
+anchorage_min = 61
+anchorage_max = 61.25
+plt.ylim(anchorage_min, anchorage_max)
+plt.xlim(anchorage_min_long, anchorage_max_long)
 plt.show()
 
 #borough_plot.get_figure().savefig('/Users/nknapp/Desktop/test.pdf')
