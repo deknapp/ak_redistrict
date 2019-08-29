@@ -5,22 +5,12 @@ import os
 import osr
 
 import legislators
+import districts
 
-os.system('SHAPE_RESTORE_SHX=YES fio info shapefiles/2013_districts.shp')
-
-prj_name = 'shapefiles/2013_precincts_proj.prj'
-full_name = os.path.join(os.getcwd(), prj_name)
-prj = open(full_name)
-proj4 = osr.SpatialReference(prj.read()).ExportToProj4()
-
-district_file = 'shapefiles/2013_districts.shp'
-full_file = os.path.join(os.getcwd(), district_file)
-df = geopandas.read_file(full_file) 
 leg_gdf_plot = legislators.get_leg_plot()
+district_gdf = districts.get_district_gdf()
+final = district_gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
 
-geometry = df['geometry'].to_crs(proj4)
-gdf = geopandas.GeoDataFrame(df, geometry=geometry, crs=proj4) 
-final = gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
 anchorage_max_long = -149.7
 anchorage_min_long = -150.1
 anchorage_min = 61
