@@ -16,14 +16,13 @@ proj4 = osr.SpatialReference(prj.read()).ExportToProj4()
 district_file = 'shapefiles/2013_districts.shp'
 full_file = os.path.join(os.getcwd(), district_file)
 df = geopandas.read_file(full_file) 
-leg_gdf = legislators.get_leg_gdf()
-leg_gdf_plot = leg_gdf.plot(color='red')
+leg_gdf_plot = legislators.get_leg_plot()
 
 geometry = df['geometry'].to_crs(proj4)
 gdf = geopandas.GeoDataFrame(df, geometry=geometry, crs=proj4) 
-gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
-anchorage_min_long = -149.7
-anchorage_max_long = -150.1
+final = gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
+anchorage_max_long = -149.7
+anchorage_min_long = -150.1
 anchorage_min = 61
 anchorage_max = 61.25
 
@@ -31,7 +30,7 @@ plt.ylim(anchorage_min, anchorage_max)
 plt.xlim(anchorage_min_long, anchorage_max_long)
 plt.show()
 
-#borough_plot.get_figure().savefig('/Users/nknapp/Desktop/test.pdf')
+final.get_figure().savefig('/Users/nknapp/Desktop/basic_legislator_plot.pdf')
 
 
 
