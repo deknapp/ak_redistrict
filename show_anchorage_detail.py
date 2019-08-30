@@ -10,6 +10,7 @@ import districts
 leg_gdf_plot = legislators.get_leg_plot()
 district_gdf = districts.get_district_gdf()
 final = district_gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
+final = districts.label_districts(final)
 
 anchorage_max_long = -149.7
 anchorage_min_long = -150.1

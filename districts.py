@@ -27,9 +27,25 @@ def get_district_gdf():
 def label_districts(plot):
   df = get_district_df()
   i = 1
-  for x, y, label in df.Longitude, df.Latitude, df.Legislator):
-    text = plot.annotate(str(i))
-    text.set_fontsize(15) 
-    i++ 
- 
-
+  prj_name = 'shapefiles/2013_precincts_proj.prj'
+  full_name = os.path.join(os.getcwd(), prj_name)
+  prj = open(full_name)
+  proj4 = osr.SpatialReference(prj.read()).ExportToProj4()
+  for geo in df.geometry.to_crs(proj4): 
+    if i == 22:
+      text = plot.annotate(str(i), xy=(geo.centroid.x - 0.015, geo.centroid.y))
+      text.set_fontsize(15) 
+    elif i == 21:
+      text = plot.annotate(str(i), xy=(geo.centroid.x +  0.03, geo.centroid.y))
+      text.set_fontsize(15) 
+    elif i == 15:
+      text = plot.annotate(str(i), xy=(geo.centroid.x, geo.centroid.y - 0.03))
+      text.set_fontsize(15) 
+    elif i == 28:
+      text = plot.annotate(str(i), xy=(geo.centroid.x - 0.03, geo.centroid.y))
+      text.set_fontsize(15) 
+    else: 
+      text = plot.annotate(str(i), xy=(geo.centroid.x, geo.centroid.y))
+      text.set_fontsize(15) 
+    i = i + 1
+  return plot 
