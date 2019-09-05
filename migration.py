@@ -8,12 +8,12 @@ TOTALS_LINE = 35
 
 # returns dict showing migration between two different years
 def read_file(file_name):
-  full_file_name = os.path.join(os.getcwd() + MIGRATION_CSV_DIRECTORY, file_name)
+  full_file_name = os.path.join(os.getcwd(), MIGRATION_CSV_DIRECTORY, file_name)
   handle = open(full_file_name, 'r')
   lines = handle.readlines()
   header_line = lines[HEADER_LINE-1]
-  to_names = header_line.split(','][2:-2]
-  to_from_dict = {]
+  to_names = header_line.split(',')[2:-2]
+  to_from_dict = {}
   for name in to_names:
     to_from_dict[name] = {}
   for line in lines[FIRST_CHANGE_LINE-1, LAST_CHANGE_LINE-1]:
@@ -24,3 +24,6 @@ def read_file(file_name):
     for number in split_line[2:-2]:
       to_from_dict[header_line[i]] = number
       i = i + 1
+  print(to_from_dict)
+  return to_from_dict
+
