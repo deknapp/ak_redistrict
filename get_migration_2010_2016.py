@@ -6,15 +6,19 @@ def get_file_for_years(yearA, yearB):
 def migration_dict(yearA, yearB):
   return migration.read_file(get_file_for_years(yearA, yearB))
 
-dict_2010_2011 = migration_dict(2010, 2011)
+dct_list = []
+for i in range(2010, 2016):
+  dct_list.append(migration_dict(i, i+1)) 
 
-for key in dict_2010_2011:
+sum_dict = migration.add_migration_dicts(dct_list)
+
+for key in sum_dict:
+  print('------------------------')
   print(key)
   print('------------------------')
-  for k in dict_2010_2011[key]:
-    val = dict_2010_2011[key][k]
-    if val != '-':
-      print(val)
+  for k in sum_dict[key]:
+    val = sum_dict[key][k]
+    print(k, val)
   
 
 

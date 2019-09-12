@@ -6,6 +6,23 @@ FIRST_CHANGE_LINE = 8
 LAST_CHANGE_LINE = 33
 TOTALS_LINE = 35
 
+def add_inner_dict(dctA, dctB):
+  for key in dctB:
+    if key not in dctA.keys():
+      dctA[key] = dctB[key]
+    else:
+      dctA[key] = dctA[key] + dctB[key]
+  return dctA
+
+def add_migration_dicts(lst):
+  sum_dict = {}
+  for dct in lst:
+    for key in dct:
+      if key not in sum_dict.keys():
+        sum_dict[key] = dict() 
+      sum_dict[key] = add_inner_dict(sum_dict[key], dct[key])
+  return sum_dict
+
 # returns dict showing migration between two different years
 def read_file(file_name):
   full_file_name = os.path.join(os.getcwd(), MIGRATION_CSV_DIRECTORY, file_name)
@@ -35,7 +52,8 @@ def read_file(file_name):
     for number in split_line[2:-3]:
       if i > len(split_header_line) - 1:
         break
-      to_from_dict[from_name][split_header_line[i]] = number
+      if number.isdigit():
+        to_from_dict[from_name][split_header_line[i]] = int(number)
       i = i + 1
   return to_from_dict
 
