@@ -13,13 +13,13 @@ for i in range(2010, 2016):
 
 sum_dict = migration.add_migration_dicts(dct_list)
 
-
 result_name = 'results/migration_2010_2016'
 full_result_name = os.path.join(os.getcwd(), result_name)
 handle = open(full_result_name, 'w')
+
 for key in sum_dict:
   handle.write(key)
-  handle.write('|')
+  handle.write(',')
   for k in sum_dict[key]:
     val = sum_dict[key][k]
     handle.write(k + ',' + str(val) + '|')

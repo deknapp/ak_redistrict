@@ -19,7 +19,7 @@ anchorage_max = 61.25
 
 plt.ylim(anchorage_min, anchorage_max)
 plt.xlim(anchorage_min_long, anchorage_max_long)
-plt.show()
+#plt.show()
 
 final.get_figure().savefig('/Users/nknapp/Desktop/basic_legislator_plot.pdf')
 

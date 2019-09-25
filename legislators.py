@@ -3,6 +3,19 @@ import matplotlib.pyplot as plt
 import pandas
 import os
 
+senate_dems = ['Kawasaki', 'Wielechowski', 'Gray-Jackson', 'Begich', 'Kiehl', 'Hoffman', 'Olson']
+senate_gop = ['Coghill', 'Bishop', 'Wilson', 'Shower', 'Hughes', 'Reinbold', 'Costello', 'Imhof', 'Giessel', 'Micciche', 'Stevens', 'Stedman']
+
+house_ind = ['Ortiz', 'Edgmon']
+house_gop_coalition = ['LeBon', 'Thompson', 'Kopp', 'Johnston', 'Knopp', 'Stutes'] 
+house_dems = ['Hopkins', 'Wool', 'Spohnholz', 'Josephson', 'Drummond', 'Tarr', 'Fields', 'Claman', 'Tuck', 'Hannan', 'Story', 'Kreiss-Tomkins', 'Zulkosky', 'Foster', 'Lincoln']   
+house_gop = ['Wilson', 'Talerico', 'Sullivan-Leonard', 'Neuman', 'Rauscher', 'Eastman', 'Johnson', 'Tilton', 'Jackson', 'Merrick', 'LeDoux', 'Revak', 'Shaw', 'Pruitt', 'Carpenter', 'Vance'] 
+
+def get_senator_label_color(sen):
+
+def get_rep_label_color(rep):
+
+
 def get_leg_df():
 	coord_file = os.path.join(os.getcwd(), 'csv_files/leg_coord_dict.csv')
 	handle = open(coord_file, 'r')
