@@ -11,11 +11,11 @@ leg_gdf_plot = legislators.get_leg_plot('rep')
 
 district_gdf = districts.get_district_gdf()
 final = district_gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
-final = districts.label_districts(final)
+final = districts.label_rep_districts(final)
 
-anchorage_max_long = -149.72
-anchorage_min_long = -150.1
-anchorage_min = 61.00
+anchorage_max_long = -149.68
+anchorage_min_long = -150.01
+anchorage_min = 61.08
 anchorage_max = 61.25
 
 plt.ylim(anchorage_min, anchorage_max)

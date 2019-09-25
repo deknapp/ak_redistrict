@@ -24,7 +24,7 @@ def get_district_gdf():
   gdf = geopandas.GeoDataFrame(df, geometry=geometry, crs=proj4) 
   return gdf
 
-def label_districts(plot):
+def label_rep_districts(plot):
   df = get_district_df()
   i = 1
   prj_name = 'shapefiles/2013_precincts_proj.prj'
@@ -36,13 +36,28 @@ def label_districts(plot):
       text = plot.annotate(str(i), xy=(geo.centroid.x - 0.015, geo.centroid.y))
       text.set_fontsize(9) 
     elif i == 21:
-      text = plot.annotate(str(i), xy=(geo.centroid.x +  0.03, geo.centroid.y))
+      text = plot.annotate(str(i), xy=(-149.98, 61.18))
+      text.set_fontsize(9) 
+    elif i == 24:
+      text = plot.annotate(str(i), xy=(-149.95, 61.11))
+      text.set_fontsize(9) 
+    elif i == 27:
+      text = plot.annotate(str(i), xy=(-149.73, 61.165))
       text.set_fontsize(9) 
     elif i == 15:
       text = plot.annotate(str(i), xy=(geo.centroid.x, geo.centroid.y - 0.03))
       text.set_fontsize(9) 
+    elif i == 18:
+      text = plot.annotate(str(i), xy=(geo.centroid.x, 61.185))
+      text.set_fontsize(9) 
     elif i == 28:
-      text = plot.annotate(str(i), xy=(geo.centroid.x - 0.03, geo.centroid.y))
+      text = plot.annotate(str(i), xy=(-149.73, 61.09))
+      text.set_fontsize(9) 
+    elif i == 14:
+      text = plot.annotate(str(i), xy=(-149.7, 61.2))
+      text.set_fontsize(9) 
+    elif i == 13:
+      text = plot.annotate(str(i), xy=(-149.72, 61.24))
       text.set_fontsize(9) 
     else: 
       text = plot.annotate(str(i), xy=(geo.centroid.x, geo.centroid.y))
