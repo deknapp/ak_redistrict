@@ -14,8 +14,8 @@ final = district_gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', face
 final = districts.label_districts(final)
 
 anchorage_max_long = -149.72
-anchorage_min_long = -150
-anchorage_min = 61.09
+anchorage_min_long = -150.1
+anchorage_min = 61.00
 anchorage_max = 61.25
 
 plt.ylim(anchorage_min, anchorage_max)

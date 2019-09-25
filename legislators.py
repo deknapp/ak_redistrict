@@ -9,8 +9,8 @@ senate = senate_dems + senate_gop
  
 house_ind = ['Ortiz', 'Edgmon']
 house_gop_coalition = ['LeBon', 'Thompson', 'Kopp', 'Johnston', 'Knopp', 'Stutes'] 
-house_dems = ['Hopkins', 'Wool', 'Spohnholz', 'Josephson', 'Drummond', 'Tarr', 'Fields', 'Claman', 'Tuck', 'Hannan', 'Story', 'Kreiss-Tomkins', 'Zulkosky', 'Foster', 'Lincoln']   
-house_gop = ['Wilson', 'Talerico', 'Sullivan-Leonard', 'Neuman', 'Rauscher', 'Eastman', 'Johnson', 'Tilton', 'Jackson', 'Merrick', 'LeDoux', 'Revak', 'Shaw', 'Pruitt', 'Carpenter', 'Vance'] 
+house_dems = ['Hopkins', 'Wool', 'Spohnholz', 'Josephson', 'Drummond', 'Tarr', 'Fields', 'Claman', 'Hannan', 'Story', 'Kreiss-Tomkins', 'Zulkosky', 'Foster', 'Lincoln', 'Tuck']   
+house_gop = ['Wilson', 'Talerico', 'Sullivan-Leonard', 'Neuman', 'Rauscher', 'Eastman', 'Johnson', 'Tilton', 'Jackson', 'Merrick', 'Ledoux', 'Revak', 'Shaw', 'Pruitt', 'Carpenter', 'Vance', 'Rasmussen'] 
 house = house_ind + house_gop_coalition + house_dems + house_gop
 
 
@@ -70,17 +70,33 @@ def get_leg_plot(typ):
   leg_gdf_plot = leg_gdf.plot(color='red')
   i = 0 
   for x, y, label in zip(leg_df.Longitude, leg_df.Latitude, leg_df.Legislator):
+    print(label)
     if 'Wielechowski' in label:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y+0.005))
-      text.set_fontsize(9)
+      text.set_fontsize(6)
     elif 'Fields' in label:
-      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y+0.005))
-      text.set_fontsize(9)
-    elif 'Rasmussen' in label:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x+0.003, y+0.005))
-      text.set_fontsize(9)
+      text.set_fontsize(6)
+    elif 'Tarr' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x+0.003, y+0.005))
+      text.set_fontsize(6)
+    elif 'Rasmussen' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x, y-0.007))
+      text.set_fontsize(6)
+    elif 'Claman' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y-0.01))
+      text.set_fontsize(6)
+    elif 'Shaw' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y+0.005))
+      text.set_fontsize(6)
+    elif 'Spohnholz' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x, y+0.005))
+      text.set_fontsize(6)
+    elif 'Ledoux' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y+0.005))
+      text.set_fontsize(6)
     else:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x+0.003, y-0.006))
-      text.set_fontsize(9) 
+      text.set_fontsize(6) 
   return leg_gdf_plot
  

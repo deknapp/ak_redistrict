@@ -34,18 +34,18 @@ def label_districts(plot):
   for geo in df.geometry.to_crs(proj4): 
     if i == 22:
       text = plot.annotate(str(i), xy=(geo.centroid.x - 0.015, geo.centroid.y))
-      text.set_fontsize(15) 
+      text.set_fontsize(9) 
     elif i == 21:
       text = plot.annotate(str(i), xy=(geo.centroid.x +  0.03, geo.centroid.y))
-      text.set_fontsize(15) 
+      text.set_fontsize(9) 
     elif i == 15:
       text = plot.annotate(str(i), xy=(geo.centroid.x, geo.centroid.y - 0.03))
-      text.set_fontsize(15) 
+      text.set_fontsize(9) 
     elif i == 28:
       text = plot.annotate(str(i), xy=(geo.centroid.x - 0.03, geo.centroid.y))
-      text.set_fontsize(15) 
+      text.set_fontsize(9) 
     else: 
       text = plot.annotate(str(i), xy=(geo.centroid.x, geo.centroid.y))
-      text.set_fontsize(15) 
+      text.set_fontsize(9) 
     i = i + 1
   return plot 
