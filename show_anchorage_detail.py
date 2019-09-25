@@ -7,7 +7,8 @@ import osr
 import legislators
 import districts
 
-leg_gdf_plot = legislators.get_leg_plot()
+leg_gdf_plot = legislators.get_leg_plot('rep')
+
 district_gdf = districts.get_district_gdf()
 final = district_gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
 final = districts.label_districts(final)
