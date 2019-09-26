@@ -20,13 +20,19 @@ def house_party_legend_anch():
   coalition_patch = mpatches.Patch(color='g', label='Coalition Republican')    
   return [dem_patch, republican_patch, coalition_patch]    
 
-def get_senator_label_color(sen):
+def sen_party_legend():
+  dem_patch = mpatches.Patch(color='b', label='Democrat')    
+  republican_patch = mpatches.Patch(color='r', label='Republican')    
+  return [dem_patch, republican_patch]    
+
+def get_senator_label_color(full_sen):
+  sen = full_sen.split()[1] 
   if sen in senate_dems:
     return 'b'
   elif sen in senate_gop:
     return 'r'
   else:
-    return 'y'   
+    return 'k'   
 
 def get_rep_label_color(full_rep):
   rep = full_rep.split()[1]
@@ -71,8 +77,6 @@ def get_leg_points(typ):
   df = get_leg_df(typ)
   return geopandas.points_from_xy(df.Longitude, df.Latitude)
 
-
-
 def get_leg_plot(typ):
   leg_df = get_leg_df(typ) 
   leg_gdf = get_leg_gdf(typ)
@@ -80,11 +84,7 @@ def get_leg_plot(typ):
   i = 0 
   for x, y, label in zip(leg_df.Longitude, leg_df.Latitude, leg_df.Legislator):
     print(label)
-    if 'Wielechowski' in label:
-      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y+0.005))
-      text.set_fontsize(6)
-      text.set_color(get_rep_label_color(label))
-    elif 'Fields' in label:
+    if 'Fields' in label:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x+0.003, y+0.005))
       text.set_fontsize(6)
       text.set_color(get_rep_label_color(label))
@@ -115,6 +115,9 @@ def get_leg_plot(typ):
     else:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x+0.003, y-0.006))
       text.set_fontsize(6) 
-      text.set_color(get_rep_label_color(label))
+      if typ == 'rep':
+        text.set_color(get_rep_label_color(label))
+      else:
+        text.set_color(get_senator_label_color(label))
   return leg_gdf_plot
  
