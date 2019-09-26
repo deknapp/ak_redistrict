@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import pandas
 import os
 import osr
-
 import legislators
 import districts
 
@@ -20,11 +19,7 @@ anchorage_max = 61.25
 
 plt.ylim(anchorage_min, anchorage_max)
 plt.xlim(anchorage_min_long, anchorage_max_long)
-plt.title("Anchorage House Districts and Rep. Locations")
-#plt.show()
+plt.legend(handles=legislators.house_party_legend_anch(), loc='upper left', fontsize='xx-small')
+plt.title("Anchorage Representative Locations And Districts")
 
 final.get_figure().savefig('/Users/nknapp/Desktop/basic_legislator_plot.pdf')
-
-
-
-
