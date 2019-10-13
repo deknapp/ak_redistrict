@@ -6,6 +6,12 @@ FIRST_CHANGE_LINE = 8
 LAST_CHANGE_LINE = 33
 TOTALS_LINE = 35
 
+def get_file_for_years(yearA, yearB):
+  return str(yearA) + '-' + str(yearB) + '-Table 1.csv'
+
+def migration_dict(yearA, yearB):
+  return read_file(get_file_for_years(yearA, yearB))
+
 def add_inner_dict(dctA, dctB):
   for key in dctB:
     if key not in dctA.keys():

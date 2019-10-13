@@ -4,12 +4,9 @@ import os
 def get_file_for_years(yearA, yearB):
   return str(yearA) + '-' + str(yearB) + '-Table 1.csv'
 
-def migration_dict(yearA, yearB):
-  return migration.read_file(get_file_for_years(yearA, yearB))
-
 dct_list = []
 for i in range(2010, 2016):
-  dct_list.append(migration_dict(i, i+1)) 
+  dct_list.append(migration.migration_dict(i, i+1)) 
 
 sum_dict = migration.add_migration_dicts(dct_list)
 
