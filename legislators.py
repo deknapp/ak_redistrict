@@ -5,7 +5,7 @@ import pandas
 import os
 
 senate_dems = ['Kawasaki', 'Wielechowski', 'Gray-Jackson', 'Begich', 'Kiehl', 'Hoffman', 'Olson']
-senate_gop = ['Coghill', 'Bishop', 'Wilson', 'Shower', 'Hughes', 'Reinbold', 'Costello', 'Imhof', 'Giessel', 'Micciche', 'Stevens', 'Stedman']
+senate_gop = ['Coghill', 'Bishop', 'Wilson', 'Shower', 'Hughes', 'Reinbold', 'Costello', 'von-Imhof', 'Giessel', 'Micciche', 'Stevens', 'Stedman']
 senate = senate_dems + senate_gop
  
 house_ind = ['Ortiz', 'Edgmon']
