@@ -1,2 +1,2 @@
-ANCH = 'Anchorage Municipality'
+ANCHORAGE = 'Anchorage Municipality'
 BETHEL = 'Bethel Census Area'
