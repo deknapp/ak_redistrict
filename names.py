@@ -1,2 +1,8 @@
 ANCHORAGE = 'Anchorage Municipality'
 BETHEL = 'Bethel Census Area'
+FAIRBANKS = 'Fairbanks North Star Borough'
+VALDEZ_CORDOVA = 'Valdez-Cordova Census Area'
+NW_ARCTIC = 'Northwest Arctic Borough'
+MATSU = 'Matanuska-Susitna Borough'
+HYDER = 'Prince of Wales-Hyder Census Area'
+JUNEAU = 'Juneau City and Borough'
