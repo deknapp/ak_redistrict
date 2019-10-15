@@ -47,9 +47,9 @@ def read_file(file_name):
       else:
         cleaned_line += chunk.replace(',',"")
       i = i+1 
-    split_line = cleaned_line.split(',')
+    split_line = [chunk.strip() for chunk in cleaned_line.split(',')]
     area_name = split_line[0]
-    from_name = area_name.split('in')[1]
+    from_name = area_name.split('in')[1].strip()
     if len(area_name.split('in')) > 2:     
       for name_part in area_name.split('in')[2:]:
         from_name = from_name + 'in' + name_part
