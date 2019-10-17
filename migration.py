@@ -3,8 +3,7 @@ import os
 MIGRATION_CSV_DIRECTORY = 'csv_files/migration_csv_files'
 CHANGE_HEADER_LINE = 6
 FIRST_CHANGE_LINE = 8
-LAST_CHANGE_LINE = 33
-TOTALS_LINE = 35
+LAST_CHANGE_LINE = 38
 
 def get_file_for_years(yearA, yearB):
   return str(yearA) + '-' + str(yearB) + '-Table 1.csv'
@@ -49,10 +48,12 @@ def read_file(file_name):
       i = i+1 
     split_line = [chunk.strip() for chunk in cleaned_line.split(',')]
     area_name = split_line[0]
-    from_name = area_name.split('in')[1].strip()
-    if len(area_name.split('in')) > 2:     
-      for name_part in area_name.split('in')[2:]:
-        from_name = from_name + 'in' + name_part
+    if 'Out of State' in area_name:
+      from_name = 'Out of State'
+    else:
+      from_name = area_name.split('in')[1].strip()
+    if 'Wales' in area_name:
+      from_name = 'Prince of Wales-Hyder Census Area' 
     i = 2
     to_from_dict[from_name] = dict()
     for number in split_line[2:-3]:

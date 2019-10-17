@@ -7,7 +7,8 @@ def get_net_migration_list(first_year, last_year, dest, source):
   lst = []
   for i in range(first_year, last_year):
     dct = migration.migration_dict(i, i+1)
-    print(dct[names.ANCHORAGE][names.OUT_OF_STATE])
+    if i == 1:
+      print(dct)
     to_val = 0
     try:
       to_val = dct[source][dest] 
@@ -24,6 +25,7 @@ def get_net_migration_list(first_year, last_year, dest, source):
 
 def plot_migration(frm, to, start_year, end_year):
   lst = get_net_migration_list(start_year, end_year, to, frm)
+  print(lst)
   x_vals = range(start_year, end_year+1)
   y_vals = [0]
   for val in lst:
@@ -42,6 +44,7 @@ def plot_migration(frm, to, start_year, end_year):
 
 def plot_all_migration(start_year, end_year):
   for frm in names.PLACE_LIST:
+    print('from ' + frm)
     for to in names.PLACE_LIST:
       if frm != to:
         plot_migration(frm, to, start_year, end_year)
