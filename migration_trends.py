@@ -3,6 +3,7 @@ import names
 import matplotlib.pyplot as plt
 import os
 import networkx as nx
+import statistics
 
 def get_net_migration_list(first_year, last_year, dest, source):
   lst = []
@@ -101,8 +102,19 @@ def plot_all_pie_chart_migration(start_year, end_year):
   for to in names.PLACE_LIST:
     pie_chart_migration(to, start_year, end_year)
 
+def get_dict_scale(dct):
+  vals = []
+  for a in dct.keys():
+    for b in dct[a].keys():
+       vals.append(dct[a][b])
+  mean = statistics.mean(vals)
+  if mean == 0:
+    return 1
+  return mean   
+
 def flow_graph(start_year, end_year, places):
   flw_dict = flow_dict(start_year, end_year)
+  scale = get_dict_scale(flw_dict)
   g = nx.DiGraph()
   edge_label_dict = {} 
   for to in places:
@@ -110,11 +122,11 @@ def flow_graph(start_year, end_year, places):
       if to != frm:
         if to in flw_dict[frm].keys():
           if flw_dict[frm][to] != 0 and flw_dict[frm][to] > 0:  
-            g.add_edge(to, frm, weight=1, title=str(flw_dict[frm][to]))
-  pos = nx.spring_layout(g, dim=2, k=1/pow(len(flw_dict.keys()), (1/16)))
+            g.add_edge(to, frm, title=str(flw_dict[frm][to]))
+  pos = nx.spring_layout(g, dim=2)
   labels = nx.get_edge_attributes(g, 'title')
   nx.draw(g, pos, with_labels=True)
-  nx.draw_networkx_edge_labels(g, pos, edge_labels=labels, font_color='red') 
+  nx.draw_networkx_edge_labels(g, pos, edge_labels=labels) 
   plt.axis('off')
   plt.show()
   
