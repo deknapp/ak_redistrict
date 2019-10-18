@@ -2,6 +2,7 @@ import migration
 import names
 import matplotlib.pyplot as plt
 import os
+import networkx as nx
 
 def get_net_migration_list(first_year, last_year, dest, source):
   lst = []
@@ -37,14 +38,24 @@ def plot_migration(frm, to, start_year, end_year):
     os.mkdir('/Users/nknapp/Desktop/akpirg/migration_plots/migration_to_' + to + '/')
   except:
     pass
-  #plt.show()
-  #plt.savefig('/Users/nknapp/Desktop/akpirg/migration_plots/migration_to_' + to + '/migration_from_' + frm + '_to_' + to + '_' + str(start_year) + '_' + str(end_year) + '.png') 
+  plt.show()
+  plt.savefig('/Users/nknapp/Desktop/akpirg/migration_plots/migration_to_' + to + '/migration_from_' + frm + '_to_' + to + '_' + str(start_year) + '_' + str(end_year) + '.png') 
 
 def plot_all_migration(start_year, end_year):
   for frm in names.PLACE_LIST:
     for to in names.PLACE_LIST:
       if frm != to:
         plot_migration(frm, to, start_year, end_year)
+
+def flow_dict(start_year, end_year):
+  flw_dct = dict()
+  for to in names.PLACE_LIST:
+    for frm in names.PLACE_LIST:
+      flw_dct[frm] = dict()
+      if frm != to:
+        total = sum(get_net_migration_list(start_year, end_year, to, frm))
+        flw_dct[frm][to] = total
+  return flw_dct
 
 def pie_chart_migration(to, start_year, end_year):
   inflow_dct = dict()
@@ -86,11 +97,27 @@ def pie_chart_migration(to, start_year, end_year):
   plt.savefig('/Users/nknapp/Desktop/akpirg/pie_charts/outflow_from_' + to + '.png')
 
 
-def plot_all_migration(start_year, end_year):
+def plot_all_pie_chart_migration(start_year, end_year):
   for to in names.PLACE_LIST:
     pie_chart_migration(to, start_year, end_year)
 
-pie_chart_migration(names.MATSU, 2010, 2016)
+def flow_graph(start_year, end_year):
+  flw_dict = flow_dict(start_year, end_year)
+  g = nx.DiGraph()
+  edge_label_dict = {} 
+  for to in names.PLACE_LIST:
+    for frm in names.PLACE_LIST: 
+      if to != frm:
+        if to in flw_dict[frm].keys():
+          g.add_edge(frm, to, weight=1, title=str(flw_dict[frm][to]))
+  pos = nx.spring_layout(g)
+  labels = nx.get_edge_attributes(g, 'title')
+  nx.draw(g, pos, with_labels=True)
+  nx.draw_networkx_edge_labels(g, pos, edge_labels=labels, font_color='red') 
+  plt.axis('off')
+  plt.show()
 
-#plot_migration(names.ANCHORAGE, names.OUT_OF_STATE, 2010, 2016)
-#plot_all_migration(2010, 2016) 
+flow_graph(2010,2016)
+
+
+ 
