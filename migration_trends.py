@@ -23,6 +23,26 @@ def get_net_migration_list(first_year, last_year, dest, source):
     lst.append(net_val)
   return lst
 
+def compare_migration(start_year, end_year, from_list, to):
+  plt.clf()
+#  plt.rcParams["font.size"] = 8
+  plt.title('Migration to ' + to + ' since '+ str(start_year))
+  plt.ylabel('Net population flow')
+  plt.xlabel('Year')
+  x_vals = range(start_year, end_year+1)
+  for frm in from_list:
+    lst = get_net_migration_list(start_year, end_year, to, frm)
+    y_vals = [0]
+    for val in lst:
+      y_vals.append(y_vals[-1] + val)
+    plt.plot(x_vals, y_vals, label=frm)
+  plt.legend(loc='upper left')
+  try:
+    os.mkdir('/Users/nknapp/Desktop/akpirg/migration_compare_plots/')
+  except:
+    pass
+  plt.savefig('/Users/nknapp/Desktop/akpirg/migration_compare_plots/migration_to_' + to + '_' + str(start_year) + '_' + str(end_year) + '.png') 
+
 def plot_migration(frm, to, start_year, end_year):
   lst = get_net_migration_list(start_year, end_year, to, frm)
   x_vals = range(start_year, end_year+1)
@@ -133,8 +153,10 @@ def flow_graph(start_year, end_year, places):
   plt.axis('off')
   plt.savefig('/Users/nknapp/Desktop/akpirg/sample_network_plot_big_places.png')
   
-big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
-flow_graph(2010,2016, big_place_names)
+#big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
+#flow_graph(2010,2016, big_place_names)
 
+from_list_matsu = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU]
+compare_migration(2010, 2016, from_list_matsu, names.MATSU)
 
  
