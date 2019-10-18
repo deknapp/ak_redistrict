@@ -25,13 +25,12 @@ def get_net_migration_list(first_year, last_year, dest, source):
 
 def compare_migration(start_year, end_year, from_list, to):
   plt.clf()
-#  plt.rcParams["font.size"] = 8
-  plt.title('Migration to ' + to + ' since '+ str(start_year))
+  plt.title('Rural migration to ' + to + ' since '+ str(start_year))
   plt.ylabel('Net population flow')
   plt.xlabel('Year')
   x_vals = range(start_year, end_year+1)
   for frm in from_list:
-    lst = get_net_migration_list(start_year, end_year, to, frm)
+    lst = get_net_migration_list(start_year, end_year, frm, to)
     y_vals = [0]
     for val in lst:
       y_vals.append(y_vals[-1] + val)
@@ -156,7 +155,19 @@ def flow_graph(start_year, end_year, places):
 #big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
 #flow_graph(2010,2016, big_place_names)
 
-from_list_matsu = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU]
-compare_migration(2010, 2016, from_list_matsu, names.MATSU)
+#from_list_matsu = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE]
+#compare_migration(2010, 2016, from_list_matsu, names.MATSU)
 
+#from_list_anchorage = [names.MATSU, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE]
+#compare_migration(2010, 2016, from_list_anchorage, names.ANCHORAGE)
+
+#from_list_fairbanks = [names.MATSU, names.ANCHORAGE, names.JUNEAU, names.OUT_OF_STATE]
+#compare_migration(2010, 2016, from_list_fairbanks, names.FAIRBANKS)
+
+#from_list_juneau = [names.MATSU, names.ANCHORAGE, names.JUNEAU, names.OUT_OF_STATE]
+#compare_migration(2010, 2016, from_list_juneau, names.JUNEAU)
+
+from_list_rural = [names.YUKON, names.NW_ARCTIC, names.NORTH_SLOPE, names.NOME, names.DENALI] #, names.ALEUTIANS_EAST, names.ALEUTIANS_WEST]
+#compare_migration(2010, 2016, from_list_rural, names.ANCHORAGE)
+compare_migration(2010, 2016, from_list_rural, names.FAIRBANKS)
  
