@@ -49,9 +49,9 @@ def plot_all_migration(start_year, end_year):
 
 def flow_dict(start_year, end_year):
   flw_dct = dict()
-  for to in names.PLACE_LIST:
-    for frm in names.PLACE_LIST:
-      flw_dct[frm] = dict()
+  for frm in names.PLACE_LIST:
+    flw_dct[frm] = dict()
+    for to in names.PLACE_LIST:
       if frm != to:
         total = sum(get_net_migration_list(start_year, end_year, to, frm))
         flw_dct[frm][to] = total
@@ -101,23 +101,25 @@ def plot_all_pie_chart_migration(start_year, end_year):
   for to in names.PLACE_LIST:
     pie_chart_migration(to, start_year, end_year)
 
-def flow_graph(start_year, end_year):
+def flow_graph(start_year, end_year, places):
   flw_dict = flow_dict(start_year, end_year)
   g = nx.DiGraph()
   edge_label_dict = {} 
-  for to in names.PLACE_LIST:
-    for frm in names.PLACE_LIST: 
+  for to in places:
+    for frm in places: 
       if to != frm:
         if to in flw_dict[frm].keys():
-          g.add_edge(frm, to, weight=1, title=str(flw_dict[frm][to]))
-  pos = nx.spring_layout(g)
+          if flw_dict[frm][to] != 0 and flw_dict[frm][to] > 0:  
+            g.add_edge(to, frm, weight=1, title=str(flw_dict[frm][to]))
+  pos = nx.spring_layout(g, dim=2, k=1/pow(len(flw_dict.keys()), (1/16)))
   labels = nx.get_edge_attributes(g, 'title')
   nx.draw(g, pos, with_labels=True)
   nx.draw_networkx_edge_labels(g, pos, edge_labels=labels, font_color='red') 
   plt.axis('off')
   plt.show()
-
-flow_graph(2010,2016)
+  
+big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
+flow_graph(2010,2016, big_place_names)
 
 
  
