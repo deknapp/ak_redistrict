@@ -106,7 +106,8 @@ def get_dict_scale(dct):
   vals = []
   for a in dct.keys():
     for b in dct[a].keys():
-       vals.append(dct[a][b])
+      if dct[a][b] != 0:
+        vals.append(abs(dct[a][b]))
   mean = statistics.mean(vals)
   if mean == 0:
     return 1
@@ -115,6 +116,7 @@ def get_dict_scale(dct):
 def flow_graph(start_year, end_year, places):
   flw_dict = flow_dict(start_year, end_year)
   scale = get_dict_scale(flw_dict)
+  print(scale)
   g = nx.DiGraph()
   edge_label_dict = {} 
   for to in places:
@@ -125,10 +127,11 @@ def flow_graph(start_year, end_year, places):
             g.add_edge(to, frm, title=str(flw_dict[frm][to]))
   pos = nx.spring_layout(g, dim=2)
   labels = nx.get_edge_attributes(g, 'title')
-  nx.draw(g, pos, with_labels=True)
+  weights = [int(g[u][v]['title'])/scale for u,v in g.edges()]
+  nx.draw(g, pos, with_labels=True, width=weights)
   nx.draw_networkx_edge_labels(g, pos, edge_labels=labels) 
   plt.axis('off')
-  plt.show()
+  plt.savefig('/Users/nknapp/Desktop/akpirg/sample_network_plot_big_places.png')
   
 big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
 flow_graph(2010,2016, big_place_names)
