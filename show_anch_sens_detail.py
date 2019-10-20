@@ -8,9 +8,9 @@ import districts
 
 leg_gdf_plot = legislators.get_leg_plot('sen')
 
-district_gdf = districts.get_district_gdf()
+district_gdf = districts.get_district_gdf(districts.HOUSE_PRJ, districts.HOUSE_SHAPE)
 final = district_gdf.plot(ax=leg_gdf_plot, color="none", edgecolor='black', facecolor="none")
-final = districts.label_rep_districts(final)
+final = districts.label_anch_sen_districts(final)
 
 anchorage_max_long = -149.68
 anchorage_min_long = -150.01
@@ -22,4 +22,4 @@ plt.xlim(anchorage_min_long, anchorage_max_long)
 plt.legend(handles=legislators.sen_party_legend(), loc='upper left', fontsize='xx-small')
 plt.title("Anchorage Senator Locations And House Districts")
 
-final.get_figure().savefig('/Users/nknapp/Desktop/anchorage_senator_plot.pdf')
+final.get_figure().savefig('/Users/nknapp/Desktop/akpirg/anchorage_senator_plot.pdf')
