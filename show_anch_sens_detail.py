@@ -20,6 +20,6 @@ anchorage_max = 61.25
 plt.ylim(anchorage_min, anchorage_max)
 plt.xlim(anchorage_min_long, anchorage_max_long)
 plt.legend(handles=legislators.sen_party_legend(), loc='upper left', fontsize='xx-small')
-plt.title("Anchorage Senator Locations With House Districts")
+plt.title("Anchorage Senator Locations With Districts")
 
 final.get_figure().savefig('/Users/nknapp/Desktop/akpirg/anchorage_senator_plot.pdf')
