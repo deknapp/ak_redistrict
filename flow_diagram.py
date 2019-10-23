@@ -9,6 +9,12 @@ import statistics
 
 
 MY_ARROWS = mp.ArrowStyle("Fancy", head_length=10, head_width=5, tail_width=.4)
+CORRECT = {'Matanuska-Susitna':'Matsu', 'Out':'Out Of State'}
+
+def correct(text):
+  if text in CORRECT.keys():
+    return CORRECT[text]
+  return text
 
 def flow_dict(start_year, end_year):
   flw_dct = dict()
@@ -57,7 +63,7 @@ def flow_graph(start_year, end_year, places):
   node_attrs = nx.get_node_attributes(g, 'name')
   custom_node_attrs = {}
   for node, attr in node_attrs.items():
-    custom_node_attrs[node] = attr
+    custom_node_attrs[node] = correct(attr)
 
   edge_labels = nx.get_edge_attributes(g, 'number')
   colors = [int(x) for x in edge_labels.values()] 
