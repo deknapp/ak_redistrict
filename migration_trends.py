@@ -168,12 +168,25 @@ def flow_graph(start_year, end_year, places):
         if short_to in flw_dict[short_frm].keys():
           if flw_dict[short_frm][short_to] != 0 and flw_dict[short_frm][short_to] > 0:  
             number = flw_dict[short_frm][short_to]
-            g.add_edge(short_to, short_frm, title=str(number))
-  pos = nx.spring_layout(g, dim=2)
-  labels = nx.get_edge_attributes(g, 'title')
-#  weights = [int(g[u][v]['title'])/scale for u,v in g.edges()]
-  nx.draw(g, pos, with_labels=True) #, width=weights)
-  nx.draw_networkx_edge_labels(g, pos, edge_labels=labels) 
+            g.add_node(short_to, name=short_to)
+            g.add_node(short_frm, name=short_frm)
+            g.add_edge(short_to, short_frm, number=str(number))
+
+  pos = nx.circular_layout(g)
+  pos_attrs = {}
+  for node, coords in pos.items():
+    pos_attrs[node] = (coords[0], coords[1] + 0.08)
+
+  node_attrs = nx.get_node_attributes(g, 'name')
+  custom_node_attrs = {}
+  for node, attr in node_attrs.items():
+    custom_node_attrs[node] = attr
+  
+  edge_labels = nx.get_edge_attributes(g, 'number') 
+  nx.draw(g, pos=pos, node_size=10) #, width=weights)
+  nx.draw_networkx_labels(g, pos_attrs, labels=custom_node_attrs)
+  nx.draw_networkx_edge_labels(g, pos_attrs, edge_labels=edge_labels)
+
   plt.axis('off')
   plt.savefig('/Users/nknapp/Desktop/akpirg/sample_network_plot_big_places.png')
 
