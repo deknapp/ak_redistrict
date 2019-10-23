@@ -1,9 +1,14 @@
 import names
 import networkx as nx
 import migration_trends
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.cm as cmx
+import matplotlib.patches as mp
 import statistics
+
+
+MY_ARROWS = mp.ArrowStyle("Fancy", head_length=10, head_width=5, tail_width=.4)
 
 def flow_dict(start_year, end_year):
   flw_dct = dict()
@@ -56,16 +61,17 @@ def flow_graph(start_year, end_year, places):
 
   edge_labels = nx.get_edge_attributes(g, 'number')
   colors = [int(x) for x in edge_labels.values()] 
-  nx.draw(g, pos=pos, node_size=10, edge_color=colors, edge_cmap=cmx.Reds) 
+  nx.draw(g, pos=pos, node_size=10, edge_color=colors, edge_cmap=cmx.Reds, width=2, arrowsize=1, arrowstyle=MY_ARROWS) 
   nx.draw_networkx_labels(g, pos_attrs, labels=custom_node_attrs)
   nx.draw_networkx_edge_labels(g, pos_attrs, edge_labels=edge_labels)
 
-  plt.axis('off')
-  plt.savefig('/Users/nknapp/Desktop/akpirg/sample_network_plot_big_places.png')
+  #plt.axis('off')
+  plt.tight_layout()
+  plt.savefig('/Users/nknapp/Desktop/akpirg/sample_network_plot_big_places.png', pad_inches=0.2, dpi=600)
 
 big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
 flow_graph(2010,2016, big_place_names)
-
+print(mpl.get_backend())
 
 
 
