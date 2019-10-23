@@ -2,6 +2,8 @@ import names
 import networkx as nx
 import migration_trends
 import matplotlib.pyplot as plt
+import matplotlib.cm as cmx
+import statistics
 
 def flow_dict(start_year, end_year):
   flw_dct = dict()
@@ -21,15 +23,13 @@ def get_dict_scale(dct):
     for b in dct[a].keys():
       if dct[a][b] != 0:
         vals.append(abs(dct[a][b]))
-  mean = statistics.mean(vals)
-  if mean == 0:
-    return 1
-  return mean   
+  mx = max(vals)
+  mn = min(vals)
+  return mx, mn   
 
 def flow_graph(start_year, end_year, places):
   flw_dict = flow_dict(start_year, end_year)
-#  scale = get_dict_scale(flw_dict)
-#  print(scale)
+  mx, mn = get_dict_scale(flw_dict)
   g = nx.DiGraph()
   edge_label_dict = {}
   for to in places:
@@ -55,7 +55,8 @@ def flow_graph(start_year, end_year, places):
     custom_node_attrs[node] = attr
 
   edge_labels = nx.get_edge_attributes(g, 'number')
-  nx.draw(g, pos=pos, node_size=10) #, width=weights)
+  colors = [int(x) for x in edge_labels.values()] 
+  nx.draw(g, pos=pos, node_size=10, edge_color=colors, edge_cmap=cmx.Reds) 
   nx.draw_networkx_labels(g, pos_attrs, labels=custom_node_attrs)
   nx.draw_networkx_edge_labels(g, pos_attrs, edge_labels=edge_labels)
 
