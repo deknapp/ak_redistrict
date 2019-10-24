@@ -28,6 +28,16 @@ def flow_dict(start_year, end_year):
         flw_dct[short_frm][short_to] = total
   return flw_dct
 
+def flow_dict_with_lists(start_year, end_year, area_dct):
+  flw_dct = flow_dict(start_year, end_year)
+  for key in area_dct.keys():
+    flw_dct[key] = dict()
+    for to in names.PLACE_LIST:
+      short_to = to.split()[0]
+      total = sum(migration_trends.get_combined_migration_list(start_year, end_year, to, area_dct[key]))
+      flw_dct[key][short_to] = total
+  return flw_dct      
+
 def get_dict_scale(dct):
   vals = []
   for a in dct.keys():
@@ -38,8 +48,12 @@ def get_dict_scale(dct):
   mn = min(vals)
   return mx, mn   
 
-def flow_graph(start_year, end_year, places, title):
-  flw_dict = flow_dict(start_year, end_year)
+def flow_graph(start_year, end_year, places, title, area_dict=None):
+  if area_dict == None:
+    flw_dict = flow_dict(start_year, end_year)
+  else:
+    flw_dict = flow_dict_with_lists(start_year, end_year, area_dict)
+
   mx, mn = get_dict_scale(flw_dict)
   
   plt.clf()
@@ -58,6 +72,13 @@ def flow_graph(start_year, end_year, places, title):
             g.add_node(short_to, name=short_to)
             g.add_node(short_frm, name=short_frm)
             g.add_edge(short_to, short_frm, number=str(number))
+  if area_dict is not None:
+    for key in area_dict.keys():
+      for to in places:
+        short_to = to.split()[0] 
+        g.add_node(key, name=key)
+        number = flw_dict[key][short_to]
+        g.add_edge(key, short_to, number=str(-1*number)) 
 
   pos = nx.circular_layout(g)
   pos_attrs = {}
@@ -81,7 +102,7 @@ def flow_graph(start_year, end_year, places, title):
   plt.savefig('/Users/nknapp/Desktop/akpirg/' + title + '.png', dpi=1200)
 
 big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
-flow_graph(2010,2016, big_place_names, 'Population Flow Between Cities and Out-Of-State, 2010 to 2016')
-
+#flow_graph(2010,2016, big_place_names, 'Population Flow Between Cities and Out-Of-State, 2010 to 2016')
+flow_graph(2010, 2016, big_place_names, 'Population Flow Between 2010 and 2016', names.RURAL_TOTAL_DICT) 
 
 
