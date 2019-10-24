@@ -4,6 +4,8 @@ import pandas
 import os
 import osr
 import string
+import names
+import descartes
 
 HOUSE_SHAPE = 'shapefiles/2013_districts.shp'
 HOUSE_PRJ = 'shapefiles/2013_precincts_proj.prj'
@@ -24,9 +26,11 @@ def get_district_gdf(prj_file, shape_file):
   df = geopandas.read_file(full_file) 
   geometry = df['geometry'].to_crs(proj4)
   gdf = geopandas.GeoDataFrame(df, geometry=geometry, crs=proj4) 
+  i = 1
+  colors = []
   return gdf
 
-def label_anch_rep_districts(plot):
+def label_anch_rep_districts(plot, shade=None):
   df = get_district_df(HOUSE_SHAPE)
   i = 1
   prj_name = 'shapefiles/2013_precincts_proj.prj'
@@ -34,6 +38,9 @@ def label_anch_rep_districts(plot):
   prj = open(full_name)
   proj4 = osr.SpatialReference(prj.read()).ExportToProj4()
   for geo in df.geometry.to_crs(proj4): 
+    if shade is not None:
+      if i in names.LOW_DISTRICTS_ANCH:
+        plot.add_patch(descartes.PolygonPatch(geo, fc='b'))
     if i == 22:
       text = plot.annotate(sen_label(i), xy=(geo.centroid.x - 0.015, geo.centroid.y))
       text.set_fontsize(9) 
@@ -77,18 +84,32 @@ def house_sen_dict():
       j += 1
   return dct 
 
+def sen_house_dict():
+  dct = dict()
+  letters = list(string.ascii_uppercase)
+  j = 0
+  for i in range(1, 41):
+    if letters[j] in dct.keys(): 
+      dct[letters[j]].append(i)
+    else:
+      dct[letters[j]] = [i]     
+    if i%2 == 0:
+      j += 1
+  return dct 
+
 HOUSE_LABEL_DICT = house_sen_dict()
 
 def sen_label(i):
   return str(i) + ' - ' + HOUSE_LABEL_DICT[i]
 
-def label_anch_sen_districts(plot):
+def label_anch_sen_districts(plot, shade=False):
   df = get_district_df(HOUSE_SHAPE)
   i = 1
   prj_name = 'shapefiles/2013_precincts_proj.prj'
   full_name = os.path.join(os.getcwd(), prj_name)
   prj = open(full_name)
   proj4 = osr.SpatialReference(prj.read()).ExportToProj4()
+
   for geo in df.geometry.to_crs(proj4): 
     if i == 22:
       text = plot.annotate(sen_label(i), xy=(geo.centroid.x - 0.015, geo.centroid.y))
@@ -121,4 +142,8 @@ def label_anch_sen_districts(plot):
       text = plot.annotate(sen_label(i), xy=(geo.centroid.x, geo.centroid.y))
       text.set_fontsize(9) 
     i = i + 1
-  return plot 
+  return plot
+
+sen_to_rep_dict = sen_house_dict()
+print(sen_to_rep_dict['D'], sen_to_rep_dict['E'], sen_to_rep_dict['F'])
+ 
