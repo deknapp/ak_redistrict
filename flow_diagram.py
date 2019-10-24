@@ -38,9 +38,13 @@ def get_dict_scale(dct):
   mn = min(vals)
   return mx, mn   
 
-def flow_graph(start_year, end_year, places):
+def flow_graph(start_year, end_year, places, title):
   flw_dict = flow_dict(start_year, end_year)
   mx, mn = get_dict_scale(flw_dict)
+  
+  plt.clf()
+  plt.cla()
+ 
   g = nx.DiGraph()
   edge_label_dict = {}
   for to in places:
@@ -67,17 +71,17 @@ def flow_graph(start_year, end_year, places):
 
   edge_labels = nx.get_edge_attributes(g, 'number')
   colors = [int(x) for x in edge_labels.values()] 
+
   nx.draw(g, pos=pos, node_size=10, edge_color=colors, edge_cmap=cmx.Reds, width=2, arrowsize=1, arrowstyle=MY_ARROWS) 
   nx.draw_networkx_labels(g, pos_attrs, labels=custom_node_attrs)
   nx.draw_networkx_edge_labels(g, pos_attrs, edge_labels=edge_labels)
 
   #plt.axis('off')
-  plt.tight_layout()
-  plt.savefig('/Users/nknapp/Desktop/akpirg/sample_network_plot_big_places.png', pad_inches=0.2, dpi=600)
+  plt.title(title, pad=1, loc='center')
+  plt.savefig('/Users/nknapp/Desktop/akpirg/' + title + '.png', dpi=1200)
 
 big_place_names = [names.ANCHORAGE, names.FAIRBANKS, names.JUNEAU, names.OUT_OF_STATE, names.MATSU] 
-flow_graph(2010,2016, big_place_names)
-print(mpl.get_backend())
+flow_graph(2010,2016, big_place_names, 'Population Flow Between Cities and Out-Of-State, 2010 to 2016')
 
 
 
