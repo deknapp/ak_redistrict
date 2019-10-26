@@ -40,7 +40,7 @@ def label_anch_rep_districts(plot, shade=None):
   for geo in df.geometry.to_crs(proj4): 
     if shade is not None:
       if i in names.LOW_DISTRICTS_ANCH:
-        plot.add_patch(descartes.PolygonPatch(geo, fc='b'))
+        plot.add_patch(descartes.PolygonPatch(geo, fc='m', alpha=0.3))
     if i == 22:
       text = plot.annotate(sen_label(i), xy=(geo.centroid.x - 0.015, geo.centroid.y))
       text.set_fontsize(9) 

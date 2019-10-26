@@ -20,6 +20,13 @@ def house_party_legend_anch():
   coalition_patch = mpatches.Patch(color='g', label='Coalition Republican')    
   return [dem_patch, republican_patch, coalition_patch]    
 
+def house_party_legend_anch_with_shade():
+  dem_patch = mpatches.Patch(color='b', label='Democrat')    
+  republican_patch = mpatches.Patch(color='r', label='Republican')    
+  coalition_patch = mpatches.Patch(color='g', label='Coalition Republican')    
+  low_patch = mpatches.Patch(color='m', label='Population Lower Than Ideal')  
+  return [dem_patch, republican_patch, coalition_patch, low_patch]    
+
 def sen_party_legend():
   dem_patch = mpatches.Patch(color='b', label='Democrat')    
   republican_patch = mpatches.Patch(color='r', label='Republican')    
