@@ -42,20 +42,19 @@ def sen_house_dict():
       j += 1
   return dct
 
-HOUSE_LABEL_DICT = house_sen_dict()
-
-def annotate_label(plot, text, centroid, label_dict=None):
-
+def annotate_label(plot, i, centroid, label_dict=None):
   x = 0
   y = 0 
-  if text in label_dict.keys():
-    x =   
-     
+  if i in label_dict.keys():
+    if label_dict[i]:
+      x = centroid.x + label_dict[i].x
+      y = centroid.y + label_dict[i].y 
+    else:
+      x = label_dict[i].x
+      y = label_dict[i].y   
   if x == 0 or y == 0:
     print("problem labeling coordinate for district " + text)
-  
-  longitude = 
-  return plot.annotate(text, xy=(
+  return plot.annotate(text, xy=(x, y))
 
 
 

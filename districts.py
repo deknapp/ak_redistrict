@@ -30,7 +30,7 @@ def get_district_gdf(prj_file, shape_file):
   colors = []
   return gdf
       
-def label_district(label_dict=label_dict, shade=False):
+def label_districts(plot, label_dict=label_dict, shade=False):
   df = get_district_df(HOUSE_SHAPE)
   i = 1
   prj_name = 'shapefiles/2013_precincts_proj.prj'
