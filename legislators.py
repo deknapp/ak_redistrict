@@ -4,6 +4,9 @@ import matplotlib.patches as mpatches
 import pandas
 import os
 
+SEN = 'sen'
+REP = 'rep'
+
 senate_dems = ['Kawasaki', 'Wielechowski', 'Gray-Jackson', 'Begich', 'Kiehl', 'Hoffman', 'Olson']
 senate_gop = ['Coghill', 'Bishop', 'Wilson', 'Shower', 'Hughes', 'Reinbold', 'Costello', 'von-Imhof', 'Giessel', 'Micciche', 'Stevens', 'Stedman']
 senate = senate_dems + senate_gop
@@ -14,13 +17,13 @@ house_dems = ['Hopkins', 'Wool', 'Spohnholz', 'Josephson', 'Drummond', 'Tarr', '
 house_gop = ['Wilson', 'Talerico', 'Sullivan-Leonard', 'Neuman', 'Rauscher', 'Eastman', 'Johnson', 'Tilton', 'Jackson', 'Merrick', 'Ledoux', 'Revak', 'Shaw', 'Pruitt', 'Carpenter', 'Vance', 'Rasmussen'] 
 house = house_ind + house_gop_coalition + house_dems + house_gop
 
-def house_party_legend_anch():
+def house_party_legend():
   dem_patch = mpatches.Patch(color='b', label='Democrat')    
   republican_patch = mpatches.Patch(color='r', label='Republican')    
   coalition_patch = mpatches.Patch(color='g', label='Coalition Republican')    
   return [dem_patch, republican_patch, coalition_patch]    
 
-def house_party_legend_anch_with_shade():
+def house_party_legend_with_shade():
   dem_patch = mpatches.Patch(color='b', label='Democrat')    
   republican_patch = mpatches.Patch(color='r', label='Republican')    
   coalition_patch = mpatches.Patch(color='g', label='Coalition Republican')    
@@ -117,6 +120,10 @@ def get_leg_plot(typ):
       text.set_color(get_rep_label_color(label))
     elif 'Ledoux' in label:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.01, y+0.005))
+      text.set_fontsize(6)
+      text.set_color(get_rep_label_color(label))
+    elif 'Bishop' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.05, y-0.005))
       text.set_fontsize(6)
       text.set_color(get_rep_label_color(label))
     else:
