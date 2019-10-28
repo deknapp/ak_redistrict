@@ -23,8 +23,9 @@ ANCH_LABEL_DICT = {
 
 FAIRBANKS_SEN_LABEL_DICT = {
 
-4: Label(-147.8, 54.88),
-5: Label(-147.85, 64.85),
+1: Label(-147.77, 64.83),
+4: Label(-147.8, 64.91),
+5: Label(-147.9, 64.8),
 6: Label(-147.3, 64.87),
 
 }

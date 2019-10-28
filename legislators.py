@@ -8,7 +8,7 @@ SEN = 'sen'
 REP = 'rep'
 
 senate_dems = ['Kawasaki', 'Wielechowski', 'Gray-Jackson', 'Begich', 'Kiehl', 'Hoffman', 'Olson']
-senate_gop = ['Coghill', 'Bishop', 'Wilson', 'Shower', 'Hughes', 'Reinbold', 'Costello', 'von-Imhof', 'Giessel', 'Micciche', 'Stevens', 'Stedman']
+senate_gop = ['Coghill', 'Bishop', 'Shower', 'Hughes', 'Reinbold', 'Costello', 'von-Imhof', 'Giessel', 'Micciche', 'Stevens', 'Stedman']
 senate = senate_dems + senate_gop
  
 house_ind = ['Ortiz', 'Edgmon']
@@ -35,7 +35,7 @@ def sen_party_legend():
   republican_patch = mpatches.Patch(color='r', label='Republican')    
   return [dem_patch, republican_patch]    
 
-def get_senator_label_color(full_sen):
+def get_sen_label_color(full_sen):
   sen = full_sen.split()[1] 
   if sen in senate_dems:
     return 'b'
@@ -57,7 +57,7 @@ def get_rep_label_color(full_rep):
   else:
     return 'w'
 
-def get_leg_df(typ):
+def get_leg_coord_dict(typ):
   coord_file = os.path.join(os.getcwd(), 'csv_files/leg_coord_dict.csv')
   handle = open(coord_file, 'r')
   legs = []
@@ -71,11 +71,17 @@ def get_leg_df(typ):
         lats.append(float(split_line[1]))
         longs.append(float(split_line[2]))
     if typ == 'sen':
+      print(split_line[0])
+      print(split_line[0].split())
       if split_line[0].split()[1] in senate: 
         legs.append(split_line[0])
         lats.append(float(split_line[1]))
         longs.append(float(split_line[2]))
   leg_coord_dict = {'Legislator':legs, 'Longitude':longs, 'Latitude':lats}
+  return leg_coord_dict
+
+def get_leg_df(typ):
+  leg_coord_dict = get_leg_coord_dict(typ)
   return pandas.DataFrame(leg_coord_dict)
 
 def get_leg_gdf(typ):
@@ -123,15 +129,27 @@ def get_leg_plot(typ):
       text.set_fontsize(6)
       text.set_color(get_rep_label_color(label))
     elif 'Bishop' in label:
-      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.05, y-0.005))
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x-0.1, y-0.012))
       text.set_fontsize(6)
-      text.set_color(get_rep_label_color(label))
+      text.set_color(get_sen_label_color(label))
+    elif 'Kawasaki' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x + 0.007, y + 0.01))
+      text.set_fontsize(6)
+      text.set_color(get_sen_label_color(label))
+    elif 'Wilson' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x + 0.004, y + 0.01))
+      text.set_fontsize(6)
+      text.set_color(get_sen_label_color(label))
+    elif 'Coghill' in label:
+      text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x + 0.008, y))
+      text.set_fontsize(6)
+      text.set_color(get_sen_label_color(label))
     else:
       text = leg_gdf_plot.annotate(label, xy=(x,y), xytext=(x+0.003, y-0.006))
       text.set_fontsize(6) 
       if typ == 'rep':
         text.set_color(get_rep_label_color(label))
       else:
-        text.set_color(get_senator_label_color(label))
+        text.set_color(get_sen_label_color(label))
   return leg_gdf_plot
  

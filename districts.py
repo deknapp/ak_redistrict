@@ -46,7 +46,7 @@ def label_districts(plot, label_dict=None, shade=False, typ=None):
     elif i in names.HIGH_DISTRICTS_MATSU:
       plot.add_patch(descartes.PolygonPatch(geo, fc='b', alpha=0.3))
     if typ == legislators.SEN:
-      txt = labels.sen_label(i)
+      txt = label.sen_label(i)
     else:
       txt = str(i)  
     text = label.annotate_label(plot=plot, text=txt, i=i, centroid=geo.centroid, label_dict=label_dict) 
