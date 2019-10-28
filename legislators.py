@@ -71,8 +71,6 @@ def get_leg_coord_dict(typ):
         lats.append(float(split_line[1]))
         longs.append(float(split_line[2]))
     if typ == 'sen':
-      print(split_line[0])
-      print(split_line[0].split())
       if split_line[0].split()[1] in senate: 
         legs.append(split_line[0])
         lats.append(float(split_line[1]))
